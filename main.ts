@@ -32,24 +32,26 @@ radio.setGroup(69)
 radio.setTransmitPower(20)
 Folgen_oder_nicht_oder_Abbrechen = 2
 basic.forever(function () {
-    if (input.compassHeading() - KompasswertController < 5) {
-        abweichungzugering = 1
-    } else {
-        abweichungzugering = 0
-    }
-    if (360 - input.compassHeading() < 180 && abweichungzugering == 0) {
-        while (KompasswertController - input.compassHeading() >= 5) {
-            motors.dualMotorPower(Motor.A, -6)
-            motors.dualMotorPower(Motor.B, 6)
+    while (Folgen_oder_nicht_oder_Abbrechen == 1) {
+        if (input.compassHeading() - KompasswertController < 5) {
+            abweichungzugering = 1
+        } else {
+            abweichungzugering = 0
         }
-    } else if (360 - input.compassHeading() > 180 && abweichungzugering == 0) {
-        while (KompasswertController - input.compassHeading() >= 5) {
-            motors.dualMotorPower(Motor.B, -6)
-            motors.dualMotorPower(Motor.A, 6)
-        }
-    } else {
-        if (Folgen_oder_nicht_oder_Abbrechen == 1 && abweichungzugering == 1) {
-            motors.dualMotorPower(Motor.AB, NeigungswertController)
+        if (360 - input.compassHeading() < 180 && abweichungzugering == 0) {
+            while (KompasswertController - input.compassHeading() >= 5) {
+                motors.dualMotorPower(Motor.A, -6)
+                motors.dualMotorPower(Motor.B, 6)
+            }
+        } else if (360 - input.compassHeading() > 180 && abweichungzugering == 0) {
+            while (KompasswertController - input.compassHeading() >= 5) {
+                motors.dualMotorPower(Motor.B, -6)
+                motors.dualMotorPower(Motor.A, 6)
+            }
+        } else {
+            if (Folgen_oder_nicht_oder_Abbrechen == 1 && abweichungzugering == 1) {
+                motors.dualMotorPower(Motor.AB, NeigungswertController)
+            }
         }
     }
 })
